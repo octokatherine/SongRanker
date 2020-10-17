@@ -36,7 +36,6 @@ class App extends Component {
     super()
     this.state = {
       token: null,
-      player: null,
       deviceId: null,
     }
     this.playerCheckInterval = null
@@ -83,9 +82,10 @@ class App extends Component {
       })
 
       // Ready
-      this.player.addListener('ready', ({ device_id }) => {
+      this.player.addListener('ready', async ({ device_id }) => {
         console.log('Ready with Device ID', device_id)
-        this.setState({ deviceId: device_id })
+        await this.setState({ deviceId: device_id })
+        this.transferPlaybackHere()
       })
 
       // Not Ready
@@ -96,6 +96,21 @@ class App extends Component {
       // Connect to the this.player!
       this.player.connect()
     }
+  }
+
+  transferPlaybackHere() {
+    const { deviceId, token } = this.state
+    fetch('https://api.spotify.com/v1/me/player', {
+      method: 'PUT',
+      headers: {
+        authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        device_ids: [deviceId],
+        play: true,
+      }),
+    })
   }
 
   render() {
@@ -115,7 +130,7 @@ class App extends Component {
             </Button>
           </Header>
         )}
-        {this.state.token && <Home token={this.state.token} />}
+        {this.state.token && <Home token={this.state.token} player={this.player} />}
       </Container>
     )
   }
