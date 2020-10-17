@@ -17,6 +17,16 @@
     <script>
       window.onSpotifyWebPlaybackSDKReady = () => {
         window.Spotify = Spotify
+        const iframe = document.querySelector(
+          'iframe[src="https://sdk.scdn.co/embedded/index.html"]'
+        )
+
+        if (iframe) {
+          iframe.style.display = 'block'
+          iframe.style.position = 'absolute'
+          iframe.style.top = '-1000px'
+          iframe.style.left = '-1000px'
+        }
       }
     </script>
   </head>

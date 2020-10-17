@@ -37,6 +37,7 @@ class App extends Component {
     this.state = {
       token: null,
       player: null,
+      deviceId: null,
     }
     this.playerCheckInterval = null
   }
@@ -56,7 +57,7 @@ class App extends Component {
     if (window.Spotify) {
       clearInterval(this.playerCheckInterval)
       this.player = new window.Spotify.Player({
-        name: 'Web Playback SDK Quick Start Player',
+        name: 'Rankify Spotify Player',
         getOAuthToken: (cb) => {
           cb(this.state.token)
         },
@@ -84,6 +85,7 @@ class App extends Component {
       // Ready
       this.player.addListener('ready', ({ device_id }) => {
         console.log('Ready with Device ID', device_id)
+        this.setState({ deviceId: device_id })
       })
 
       // Not Ready
