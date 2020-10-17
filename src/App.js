@@ -15,6 +15,8 @@ const scopes = [
   'user-library-read',
   'playlist-read-private',
   'playlist-modify-private',
+  'user-read-email',
+  'user-read-private',
 ]
 
 const hash = window.location.hash
@@ -34,7 +36,9 @@ class App extends Component {
     super()
     this.state = {
       token: null,
+      player: null,
     }
+    this.playerCheckInterval = null
   }
 
   componentDidMount() {
@@ -43,9 +47,55 @@ class App extends Component {
       this.setState({
         token: _token,
       })
+      axios.defaults.headers.common['Authorization'] = 'Bearer ' + _token
+      this.playerCheckInterval = setInterval(() => this.checkForPlayer(), 1000)
     }
-    axios.defaults.headers.common['Authorization'] = 'Bearer ' + _token
   }
+
+  checkForPlayer() {
+    if (window.Spotify) {
+      clearInterval(this.playerCheckInterval)
+      this.player = new window.Spotify.Player({
+        name: 'Web Playback SDK Quick Start Player',
+        getOAuthToken: (cb) => {
+          cb(this.state.token)
+        },
+      })
+
+      // Error handling
+      this.player.addListener('initialization_error', ({ message }) => {
+        console.error(message)
+      })
+      this.player.addListener('authentication_error', ({ message }) => {
+        console.error(message)
+      })
+      this.player.addListener('account_error', ({ message }) => {
+        console.error(message)
+      })
+      this.player.addListener('playback_error', ({ message }) => {
+        console.error(message)
+      })
+
+      // Playback status updates
+      this.player.addListener('player_state_changed', (state) => {
+        console.log(state)
+      })
+
+      // Ready
+      this.player.addListener('ready', ({ device_id }) => {
+        console.log('Ready with Device ID', device_id)
+      })
+
+      // Not Ready
+      this.player.addListener('not_ready', ({ device_id }) => {
+        console.log('Device ID has gone offline', device_id)
+      })
+
+      // Connect to the this.player!
+      this.player.connect()
+    }
+  }
+
   render() {
     return (
       <Container className="App">
@@ -59,7 +109,7 @@ class App extends Component {
                 )}&response_type=token&show_dialog=true`)
               }
             >
-              Login to Spotify
+              LOGIN WITH SPOTIFY
             </Button>
           </Header>
         )}
