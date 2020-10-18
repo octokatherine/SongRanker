@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import { Subheader } from '../Base'
+import { Subheader, Text, PrimaryButton } from '../Base'
 import axios from 'axios'
 
 const DownIcon = require('../images/down.svg')
@@ -12,12 +12,14 @@ const Search = () => {
   //artist or album
   const [searchType, setSearchType] = useState('artist')
   const [searchText, setSearchText] = useState('')
-  const [searchResult, setSearchResults] = useState(null)
+  const [searchResults, setSearchResults] = useState(null)
+  const [selectedItem, setSelectedItem] = useState(null)
 
   const getSearchResults = () => {
-    axios
-      .get(`/v1/search?q=${searchText}&type=${searchType}`)
-      .then((response) => console.log(response))
+    axios.get(`/v1/search?q=${searchText}&type=${searchType}&limit=5`).then((response) => {
+      console.log(response)
+      setSearchResults(response.data[searchType + 's'].items)
+    })
   }
 
   const onChange = (ev) => {
@@ -52,6 +54,25 @@ const Search = () => {
           <Magnify src={MagnifyingGlassIcon} />
         </SearchBarContainer>
       </SearchContainer>
+      {searchResults && (
+        <div>
+          {searchResults.map((item, idx) => (
+            <ResultItem
+              onClick={() => setSelectedItem(item)}
+              key={idx}
+              selected={selectedItem == item ? true : false}
+            >
+              {item.images[0] ? <ArtistImage src={item.images[0].url} /> : <WhiteCircle />}
+              <Text>{item.name}</Text>
+            </ResultItem>
+          ))}
+        </div>
+      )}
+      {selectedItem && (
+        <PrimaryButton style={{ marginTop: '10px' }} block>
+          BEGIN RANKING
+        </PrimaryButton>
+      )}
     </Container>
   )
 }
@@ -103,6 +124,32 @@ const Dropdown = styled.div`
 
 const Down = styled.img`
   margin-left: 0.5ch;
+`
+
+const ArtistImage = styled.img`
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  margin-right: 2ch;
+`
+
+const WhiteCircle = styled.span`
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  margin-right: 2ch;
+  background-color: white;
+`
+
+const ResultItem = styled.div`
+  display: flex;
+  align-items: center;
+  height: 56px;
+  margin-bottom: 1ch;
+  border-radius: 10px;
+  padding: ${(props) => (props.selected ? '1ch' : '0')} 2ch;
+  background-color: ${(props) =>
+    props.selected ? props.theme.darkestGray : props.theme.background};
 `
 
 export default Search

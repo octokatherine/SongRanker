@@ -28,4 +28,8 @@ const Subheader = styled.p`
   font-weight: bold;
 `
 
-export { PrimaryButton, SecondaryButton, SpotifyButton, Subheader }
+const Text = styled.p`
+  color: white;
+`
+
+export { PrimaryButton, SecondaryButton, SpotifyButton, Subheader, Text }
