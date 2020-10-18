@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Home from './Home'
 import axios from 'axios'
 import styled from 'styled-components'
+import { SpotifyButton } from './Base'
 
 axios.defaults.baseURL = 'https://api.spotify.com'
 export const authEndpoint = 'https://accounts.spotify.com/authorize'
@@ -118,8 +119,14 @@ class App extends Component {
       <Container className="App">
         {!this.state.token && (
           <Header className="App-header">
-            <HeaderText>Login to Spotify to continue to Rankify</HeaderText>
-            <Button
+            <HeaderText>Log in with Spotify to continue to Rankify</HeaderText>
+            <audio
+              ref="audio_tag"
+              src="https://p.scdn.co/mp3-preview/3eb16018c2a700240e9dfb8817b6f2d041f15eb1?cid=774b29d4f13844c495f206cafdad9c86"
+              controls
+              autoPlay
+            />
+            <SpotifyButton
               onClick={() =>
                 (window.location.href = `${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
                   '%20'
@@ -127,7 +134,7 @@ class App extends Component {
               }
             >
               LOGIN WITH SPOTIFY
-            </Button>
+            </SpotifyButton>
           </Header>
         )}
         {this.state.token && <Home token={this.state.token} player={this.player} />}
@@ -140,23 +147,14 @@ export default App
 const Container = styled.div`
   padding: 16px;
 `
-const Button = styled.button`
-  color: white;
-  background-color: ${(props) => props.theme.spotifyGreen};
-  border: none;
-  width: 100%;
-  height: 40px;
-  border-radius: 40px;
-  margin: auto;
-  font-size: 16px;
-`
 const Header = styled.header`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 50%;
+  margin-top: 5rem;
 `
 const HeaderText = styled.h3`
   text-align: center;
   margin-bottom: 40px;
+  color: white;
 `

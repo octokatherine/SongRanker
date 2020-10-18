@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import App from './App'
+import Home from './Home'
 import { ThemeProvider } from 'styled-components'
 
 const theme = {
@@ -16,7 +16,7 @@ const theme = {
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
-      <App />
+      <Home />
     </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')
