@@ -15,24 +15,9 @@
         font-size: 16px;
         background-color: #292929;
         margin: 0;
+        box-sizing: border-box;
       }
     </style>
-    <script src="https://sdk.scdn.co/spotify-player.js"></script>
-    <script>
-      window.onSpotifyWebPlaybackSDKReady = () => {
-        window.Spotify = Spotify
-        const iframe = document.querySelector(
-          'iframe[src="https://sdk.scdn.co/embedded/index.html"]'
-        )
-
-        if (iframe) {
-          iframe.style.display = 'block'
-          iframe.style.position = 'absolute'
-          iframe.style.top = '-1000px'
-          iframe.style.left = '-1000px'
-        }
-      }
-    </script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>

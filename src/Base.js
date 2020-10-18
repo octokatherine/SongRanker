@@ -22,4 +22,10 @@ const SpotifyButton = styled(PrimaryButton)`
   background-color: ${(props) => props.theme.spotifyGreen};
 `
 
-export { PrimaryButton, SecondaryButton, SpotifyButton }
+const Subheader = styled.p`
+  font-size: 1.1em;
+  color: white;
+  font-weight: bold;
+`
+
+export { PrimaryButton, SecondaryButton, SpotifyButton, Subheader }

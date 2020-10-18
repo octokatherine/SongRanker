@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
 import Header from './components/Header'
+import Search from './components/Search'
 
 axios.defaults.baseURL = 'https://api.spotify.com'
 
@@ -40,7 +41,7 @@ const Home = () => {
   return (
     <div>
       <Header />
-      {screen === screens.search && <div></div>}
+      {screen === screens.search && <Search />}
       {screen === screens.ranking && <div></div>}
       {screen === screens.results && <div></div>}
     </div>
