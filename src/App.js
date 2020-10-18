@@ -142,7 +142,7 @@ const Container = styled.div`
 `
 const Button = styled.button`
   color: white;
-  background-color: #1db954;
+  background-color: ${(props) => props.theme.spotifyGreen};
   border: none;
   width: 100%;
   height: 40px;
