@@ -1,11 +1,35 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { Subheader } from '../Base'
+import axios from 'axios'
 
 const DownIcon = require('../images/down.svg')
 const MagnifyingGlassIcon = require('../images/magnify.svg')
 
+var timerId
+
 const Search = () => {
+  //artist or album
+  const [searchType, setSearchType] = useState('artist')
+  const [searchText, setSearchText] = useState('')
+  const [searchResult, setSearchResults] = useState(null)
+
+  const getSearchResults = () => {
+    axios
+      .get(`/v1/search?q=${searchText}&type=${searchType}`)
+      .then((response) => console.log(response))
+  }
+
+  const onChange = (ev) => {
+    setSearchText(ev.target.value)
+    debounceFunction(getSearchResults, 200)
+  }
+
+  const debounceFunction = (func, delay) => {
+    clearTimeout(timerId)
+    timerId = setTimeout(func, delay)
+  }
+
   return (
     <Container>
       <Subheader>
@@ -18,7 +42,13 @@ const Search = () => {
           <Down src={DownIcon} />
         </Dropdown>
         <SearchBarContainer>
-          <SearchBar type="text" />
+          <SearchBar
+            type="text"
+            value={searchText}
+            onChange={(ev) => {
+              onChange(ev)
+            }}
+          />
           <Magnify src={MagnifyingGlassIcon} />
         </SearchBarContainer>
       </SearchContainer>
