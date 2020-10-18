@@ -4,8 +4,15 @@ import axios from 'axios'
 
 axios.defaults.baseURL = 'https://api.spotify.com'
 
+const screens = {
+  search: 'search',
+  ranking: 'ranking',
+  results: 'results',
+}
+
 const Home = () => {
   const [token, setToken] = useState(null)
+  const [screen, setScreen] = useState(screens.search)
 
   useEffect(() => {
     let config = {
@@ -29,7 +36,13 @@ const Home = () => {
       })
   }, [])
 
-  return <div></div>
+  return (
+    <div>
+      {screen === screens.search && <div></div>}
+      {screen === screens.ranking && <div></div>}
+      {screen === screens.results && <div></div>}
+    </div>
+  )
 }
 
 export default Home
