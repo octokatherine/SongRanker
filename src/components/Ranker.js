@@ -64,6 +64,7 @@ const Options = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  max-width: 400px;
 `
 
 const TitleText = styled.p`

@@ -76,6 +76,7 @@ const WarningText = styled(Text)`
 const Container = styled.div`
   padding: 16px;
   padding-top: 70px;
+  padding-bottom: 32px;
 `
 
 const ResultImage = styled.img`
