@@ -3,30 +3,32 @@ import axios from 'axios'
 import styled from 'styled-components'
 import { Subheader, Text, PrimaryButton } from '../Base'
 
-const Ranker = ({ selectedItem, setScreen }) => {
-  const [songs, setSongs] = useState([])
-
+const Ranker = ({ setScreen, songs, setSongs, albums }) => {
   useEffect(() => {
-    axios.get(`/v1/albums/${selectedItem.id}/tracks?market=US`).then((result) => {
-      setSongs(result.data.items)
-      console.log('tracks: ', result)
+    albums.forEach((a) => {
+      axios
+        .get(`/v1/albums/${a.id}/tracks?market=US`)
+        .then((result) => {
+          const tracks = result.data.items.map((t) => ({ ...t, image_url: a.images[0]?.url }))
+          setSongs((prev) => [...prev, ...tracks])
+        })
+        .catch((error) => console.log(error))
     })
   }, [])
 
-  console.log('selectedItem :>> ', selectedItem)
   return (
     <Container>
       <Heading>Choose a song</Heading>
       {songs.length && (
         <Options>
           <div>
-            <AlbumArtwork src={selectedItem.images[0]?.url} />
+            <AlbumArtwork src={songs[0].image_url} />
             <TitleText>{songs[0]?.name}</TitleText>
             <ArtistText>{songs[0]?.artists[0].name}</ArtistText>
           </div>
           <OrText>OR</OrText>
           <div>
-            <AlbumArtwork src={selectedItem.images[0]?.url} />
+            <AlbumArtwork src={songs[0].image_url} />
             <TitleText>{songs[1]?.name}</TitleText>
             <ArtistText>{songs[1]?.artists[0].name}</ArtistText>
           </div>

@@ -4,12 +4,14 @@ import axios from 'axios'
 import Header from './components/Header'
 import Search from './components/Search'
 import Ranker from './components/Ranker'
+import AlbumPicker from './components/AlbumPicker'
 
 axios.defaults.baseURL = 'https://api.spotify.com'
 
 const screens = {
   search: 'search',
-  ranking: 'ranking',
+  ranker: 'ranker',
+  album_picker: 'album_picker',
   results: 'results',
 }
 
@@ -17,6 +19,9 @@ const Home = () => {
   const [token, setToken] = useState(null)
   const [screen, setScreen] = useState(screens.search)
   const [selectedItem, setSelectedItem] = useState(null)
+  const [albums, setAlbums] = useState([])
+  const [songs, setSongs] = useState([])
+  const [selectedAlbums, setSelectedAlbums] = useState([])
 
   useEffect(() => {
     let config = {
@@ -48,9 +53,28 @@ const Home = () => {
           setScreen={setScreen}
           selectedItem={selectedItem}
           setSelectedItem={setSelectedItem}
+          setSelectedAlbums={setSelectedAlbums}
         />
       )}
-      {screen === screens.ranking && <Ranker setScreen={setScreen} selectedItem={selectedItem} />}
+      {screen === screens.album_picker && (
+        <AlbumPicker
+          setScreen={setScreen}
+          selectedItem={selectedItem}
+          setAlbums={setAlbums}
+          albums={albums}
+          selectedAlbums={selectedAlbums}
+          setSelectedAlbums={setSelectedAlbums}
+        />
+      )}
+      {screen === screens.ranker && (
+        <Ranker
+          setScreen={setScreen}
+          selectedItem={selectedItem}
+          songs={songs}
+          albums={selectedAlbums}
+          setSongs={setSongs}
+        />
+      )}
       {screen === screens.results && <div></div>}
     </div>
   )

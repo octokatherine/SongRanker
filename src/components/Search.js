@@ -10,7 +10,7 @@ var timerId
 
 const searchTypes = ['artist', 'album']
 
-const Search = ({ setScreen, selectedItem, setSelectedItem }) => {
+const Search = ({ setScreen, selectedItem, setSelectedItem, setSelectedAlbums }) => {
   //artist or album
   const [searchType, setSearchType] = useState(searchTypes[0])
   const [showDropdown, setShowDropdown] = useState(false)
@@ -37,6 +37,15 @@ const Search = ({ setScreen, selectedItem, setSelectedItem }) => {
   const toggleShowDropdown = (ev) => {
     setShowDropdown((prev) => !prev)
     ev.stopPropagation()
+  }
+
+  const nextScreen = () => {
+    if (searchType === 'album') {
+      setSelectedAlbums([selectedItem])
+      setScreen('ranker')
+    } else {
+      setScreen('album_picker')
+    }
   }
 
   return (
@@ -97,8 +106,8 @@ const Search = ({ setScreen, selectedItem, setSelectedItem }) => {
         </div>
       )}
       {selectedItem && (
-        <PrimaryButton onClick={() => setScreen('ranking')} style={{ marginTop: '10px' }} block>
-          BEGIN RANKING
+        <PrimaryButton onClick={nextScreen} style={{ marginTop: '10px' }} block>
+          {searchType === 'album' ? 'BEGIN RANKING' : 'NEXT'}
         </PrimaryButton>
       )}
     </Container>
