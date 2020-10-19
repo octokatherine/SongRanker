@@ -10,13 +10,12 @@ var timerId
 
 const searchTypes = ['artist', 'album']
 
-const Search = () => {
+const Search = ({ setScreen, selectedItem, setSelectedItem }) => {
   //artist or album
-  const [searchType, setSearchType] = useState('artist')
+  const [searchType, setSearchType] = useState(searchTypes[0])
   const [showDropdown, setShowDropdown] = useState(false)
   const [searchText, setSearchText] = useState('')
   const [searchResults, setSearchResults] = useState(null)
-  const [selectedItem, setSelectedItem] = useState(null)
 
   const getSearchResults = () => {
     axios.get(`/v1/search?q=${searchText}&type=${searchType}&limit=5`).then((response) => {
@@ -28,9 +27,6 @@ const Search = () => {
   const onChange = (ev) => {
     setSearchText(ev.target.value)
     debounceFunction(getSearchResults, 300)
-    if ((ev.target.value = '')) {
-      setSearchResults(null)
-    }
   }
 
   const debounceFunction = (func, delay) => {
@@ -73,6 +69,7 @@ const Search = () => {
               onClick={() => {
                 setSearchType(s)
                 setSearchResults(null)
+                setSelectedItem(null)
               }}
               selected={searchType === s ? true : false}
             >
@@ -100,7 +97,7 @@ const Search = () => {
         </div>
       )}
       {selectedItem && (
-        <PrimaryButton style={{ marginTop: '10px' }} block>
+        <PrimaryButton onClick={() => setScreen('ranking')} style={{ marginTop: '10px' }} block>
           BEGIN RANKING
         </PrimaryButton>
       )}
