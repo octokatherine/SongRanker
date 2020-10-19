@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
 import styled from 'styled-components'
 import { Subheader, Text, PrimaryButton } from '../Base'
+import Prioritizer from '../utils/prioritizer'
 
 function Comparison(g, l, gIndex, lIndex, clicked) {
   this.greater = g
@@ -11,17 +12,9 @@ function Comparison(g, l, gIndex, lIndex, clicked) {
   this.clicked = clicked
 }
 
-const ranked = []
-let callItems = false
-let callCurrent = false
-let callHighest = false
-
 const Ranker = ({ setScreen, songs, setSongs, albums }) => {
-  // const [ranked, setRanked] = useState([])
-  const [comparisons, setComparisons] = useState([])
-  const [highestIndex, setHighestIndex] = useState(0)
-  const [currentIndex, setCurrentIndex] = useState(1)
-  const [items, setItems] = useState([])
+  const [prioritizer, setPrioritizer] = useState(null)
+  const [, forceUpdate] = React.useState(0)
 
   useEffect(() => {
     albums.forEach((a) => {
@@ -36,113 +29,34 @@ const Ranker = ({ setScreen, songs, setSongs, albums }) => {
   }, [])
 
   useEffect(() => {
-    setItems(songs)
+    setPrioritizer(new Prioritizer(songs))
   }, [songs])
 
-  useEffect(() => {
-    if (items.length !== songs.length) {
-      displayNext()
-    }
-  }, [items])
-
-  useEffect(() => {
-    if (currentIndex !== 1) {
-      displayNext()
-    }
-  }, [currentIndex])
-
-  useEffect(() => {
-    if (highestIndex == 0) {
-      setCurrentIndex(1)
-    } else {
-      setCurrentIndex((prev) => prev + 1)
-    }
-  }, [highestIndex])
-
-  const onSelectLeft = () => {
-    compare(highestIndex, currentIndex, true)
-  }
-
-  const onSelectRight = () => {
-    compare(currentIndex, highestIndex, true)
-  }
-
-  const rank = (index) => {
-    if (items.length <= 0) return
-    ranked.push(items[index])
-    setItems((prev) => {
-      const newState = prev
-      newState.splice(index, 1)
-      return newState
-    })
-    setHighestIndex(0)
-  }
-
-  const greaterSearch = (comps, curr, target, i) => {
-    var comp,
-      found = false
-
-    while (!found && i >= 0) {
-      comp = comps[i]
-      if (comp.greater === curr) {
-        found = comp.lesser === target || greaterSearch(comps, comp.lesser, target, i)
-      }
-      i--
-    }
-
-    return found
-  }
-
-  const greaterThan = (aIndex, bIndex) => {
-    return greaterSearch(comparisons, items[aIndex], items[bIndex], comparisons.length - 1)
-  }
-
-  const displayNext = () => {
-    if (items.length < 1) {
-      setScreen('results')
-    } else if (currentIndex < items.length) {
-      // check if a comparison can be inferred
-      if (greaterThan(currentIndex, highestIndex)) {
-        compare(currentIndex, highestIndex)
-      } else if (greaterThan(highestIndex, currentIndex)) {
-        compare(highestIndex, currentIndex)
-      }
-    } else {
-      rank(highestIndex)
-    }
-  }
-
-  const compare = (hIndex, lIndex, clicked) => {
-    var comp = new Comparison(items[hIndex], items[lIndex], hIndex, lIndex, clicked)
-    setComparisons((prev) => [...prev, comp])
-
-    if (hIndex !== highestIndex) {
-      setHighestIndex(hIndex)
-    } else {
-      setCurrentIndex((prev) => prev + 1)
-    }
-  }
-
-  const leftSong = items[highestIndex]
-  const rightSong = items[currentIndex]
-
-  console.log('ranked :>> ', ranked)
-  console.log('highestIndex :>> ', highestIndex)
-  console.log('currentIndex :>> ', currentIndex)
-  console.log('items :>> ', items)
-  console.log('comparisons :>> ', comparisons)
+  console.log('prioritizer?.ranked :>> ', prioritizer?.ranked)
+  const leftSong = prioritizer?.itemA
+  const rightSong = prioritizer?.itemB
   return (
     <Container>
       <Heading>Choose a song</Heading>
       {songs.length && (
         <Options>
-          <div onClick={onSelectLeft}>
+          <div
+            onClick={() => {
+              prioritizer.compare(prioritizer.highestIndex, prioritizer.currentIndex, true)
+              forceUpdate((n) => !n)
+            }}
+          >
             <AlbumArtwork src={leftSong?.image_url} />
             <TitleText>{leftSong?.name}</TitleText>
             <ArtistText>{leftSong?.artists[0].name}</ArtistText>
           </div>
           <OrText>OR</OrText>
-          <div onClick={onSelectRight}>
+          <div
+            onClick={() => {
+              prioritizer.compare(prioritizer.currentIndex, prioritizer.highestIndex, true)
+              forceUpdate((n) => !n)
+            }}
+          >
             <AlbumArtwork src={leftSong?.image_url} />
             <TitleText>{rightSong?.name}</TitleText>
             <ArtistText>{rightSong?.artists[0].name}</ArtistText>
