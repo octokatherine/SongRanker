@@ -16,7 +16,7 @@ const FixedHeader = styled.div`
 const Header = () => {
   return (
     <FixedHeader>
-      <img src={Logo} />
+      <img src={Logo} alt="Rankify Logo" />
     </FixedHeader>
   )
 }

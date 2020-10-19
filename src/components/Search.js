@@ -8,9 +8,12 @@ const MagnifyingGlassIcon = require('../images/magnify.svg')
 
 var timerId
 
+const searchTypes = ['artist', 'album']
+
 const Search = () => {
   //artist or album
   const [searchType, setSearchType] = useState('artist')
+  const [showDropdown, setShowDropdown] = useState(false)
   const [searchText, setSearchText] = useState('')
   const [searchResults, setSearchResults] = useState(null)
   const [selectedItem, setSelectedItem] = useState(null)
@@ -24,7 +27,10 @@ const Search = () => {
 
   const onChange = (ev) => {
     setSearchText(ev.target.value)
-    debounceFunction(getSearchResults, 200)
+    debounceFunction(getSearchResults, 300)
+    if ((ev.target.value = '')) {
+      setSearchResults(null)
+    }
   }
 
   const debounceFunction = (func, delay) => {
@@ -32,15 +38,20 @@ const Search = () => {
     timerId = setTimeout(func, delay)
   }
 
+  const toggleShowDropdown = (ev) => {
+    setShowDropdown((prev) => !prev)
+    ev.stopPropagation()
+  }
+
   return (
-    <Container>
+    <Container onClick={() => setShowDropdown(false)}>
       <Subheader>
         Search for an Artist, Album, or
         <br /> Playlist to begin ranking songs
       </Subheader>
       <SearchContainer>
-        <Dropdown>
-          <Subheader>Artist</Subheader>
+        <Dropdown onClick={(ev) => toggleShowDropdown(ev)}>
+          <Subheader>{searchType.charAt(0).toUpperCase() + searchType.slice(1)}</Subheader>
           <Down src={DownIcon} />
         </Dropdown>
         <SearchBarContainer>
@@ -54,15 +65,35 @@ const Search = () => {
           <Magnify src={MagnifyingGlassIcon} />
         </SearchBarContainer>
       </SearchContainer>
+      {showDropdown && (
+        <DropdownOptions>
+          {searchTypes.map((s, idx) => (
+            <DropdownOption
+              key={idx}
+              onClick={() => {
+                setSearchType(s)
+                setSearchResults(null)
+              }}
+              selected={searchType === s ? true : false}
+            >
+              {s.charAt(0).toUpperCase() + s.slice(1)}
+            </DropdownOption>
+          ))}
+        </DropdownOptions>
+      )}
       {searchResults && (
         <div>
           {searchResults.map((item, idx) => (
             <ResultItem
               onClick={() => setSelectedItem(item)}
               key={idx}
-              selected={selectedItem == item ? true : false}
+              selected={selectedItem === item ? true : false}
             >
-              {item.images[0] ? <ArtistImage src={item.images[0].url} /> : <WhiteCircle />}
+              {item.images[0] ? (
+                <ResultImage src={item.images[0].url} type={searchType} />
+              ) : (
+                <WhiteCircle />
+              )}
               <Text>{item.name}</Text>
             </ResultItem>
           ))}
@@ -126,8 +157,25 @@ const Down = styled.img`
   margin-left: 0.5ch;
 `
 
-const ArtistImage = styled.img`
-  border-radius: 50%;
+const DropdownOptions = styled.div`
+  background-color: ${(props) => props.theme.darkestGray};
+  width: 100px;
+  height: 100px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`
+
+const DropdownOption = styled(Text)`
+  background-color: ${(props) => (props.selected ? props.theme.primary : props.theme.darkestGray)};
+  margin: 0;
+  padding-top: 16px;
+  padding-bottom: 16px;
+`
+
+const ResultImage = styled.img`
+  border-radius: ${(props) => (props.type === 'artist' ? '50%' : null)};
   height: 40px;
   width: 40px;
   margin-right: 2ch;
