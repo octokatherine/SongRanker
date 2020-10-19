@@ -69,7 +69,7 @@ const TitleText = styled.p`
   font-weight: bold;
   font-size: 13px;
   color: white;
-  margin-bottom: 5px;
+  margin-bottom: 0px;
 `
 
 const ArtistText = styled.p`
@@ -77,6 +77,7 @@ const ArtistText = styled.p`
   font-weight: normal;
   font-size: 12px;
   color: #8d9193;
+  margin-top: 0.5em;
 `
 
 export default Ranker
