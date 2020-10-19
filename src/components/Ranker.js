@@ -13,6 +13,8 @@ function Comparison(g, l, gIndex, lIndex, clicked) {
 }
 
 const Ranker = ({ setScreen, songs, setSongs, albums, setRankedList, rankedList }) => {
+  const leftOption = useRef(null)
+  const rightOption = useRef(null)
   const [prioritizer, setPrioritizer] = useState(null)
   const [, forceUpdate] = React.useState(0)
 
@@ -45,6 +47,10 @@ const Ranker = ({ setScreen, songs, setSongs, albums, setRankedList, rankedList 
   }, [songs])
 
   useEffect(() => {
+    if (leftOption.current && rightOption.current) {
+      leftOption.current.style.pointerEvents = 'auto'
+      rightOption.current.style.pointerEvents = 'auto'
+    }
     if (prioritizer?.done) {
       setRankedList(prioritizer?.ranked)
     }
@@ -59,13 +65,18 @@ const Ranker = ({ setScreen, songs, setSongs, albums, setRankedList, rankedList 
   console.log('songs :>> ', songs)
   const leftSong = prioritizer?.itemA
   const rightSong = prioritizer?.itemB
+  console.log('leftSong :>> ', leftSong)
+  console.log('rightSong :>> ', rightSong)
   return (
     <Container>
       <Heading>Choose a song</Heading>
       {songs.length && (
         <Options>
           <Option
+            ref={leftOption}
             onClick={() => {
+              leftOption.current.style.pointerEvents = 'none'
+              rightOption.current.style.pointerEvents = 'none'
               prioritizer.compare(prioritizer.highestIndex, prioritizer.currentIndex, true)
               console.log('click')
             }}
@@ -76,7 +87,10 @@ const Ranker = ({ setScreen, songs, setSongs, albums, setRankedList, rankedList 
           </Option>
           <OrText>OR</OrText>
           <Option
+            ref={rightOption}
             onClick={() => {
+              leftOption.current.style.pointerEvents = 'none'
+              rightOption.current.style.pointerEvents = 'none'
               prioritizer.compare(prioritizer.currentIndex, prioritizer.highestIndex, true)
               console.log('click')
             }}
