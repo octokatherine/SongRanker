@@ -11,18 +11,17 @@ function Comparison(g, l, gIndex, lIndex, clicked) {
   this.clicked = clicked
 }
 
+const ranked = []
+let callItems = false
+let callCurrent = false
+let callHighest = false
+
 const Ranker = ({ setScreen, songs, setSongs, albums }) => {
-  const [ranked, setRanked] = useState([])
+  // const [ranked, setRanked] = useState([])
   const [comparisons, setComparisons] = useState([])
   const [highestIndex, setHighestIndex] = useState(0)
   const [currentIndex, setCurrentIndex] = useState(1)
-  const [length, setLength] = useState(0)
   const [items, setItems] = useState([])
-
-  useEffect(() => {
-    setItems(songs)
-    setLength(songs.length)
-  }, [songs])
 
   useEffect(() => {
     albums.forEach((a) => {
@@ -36,6 +35,30 @@ const Ranker = ({ setScreen, songs, setSongs, albums }) => {
     })
   }, [])
 
+  useEffect(() => {
+    setItems(songs)
+  }, [songs])
+
+  useEffect(() => {
+    if (items.length !== songs.length) {
+      displayNext()
+    }
+  }, [items])
+
+  useEffect(() => {
+    if (currentIndex !== 1) {
+      displayNext()
+    }
+  }, [currentIndex])
+
+  useEffect(() => {
+    if (highestIndex == 0) {
+      setCurrentIndex(1)
+    } else {
+      setCurrentIndex((prev) => prev + 1)
+    }
+  }, [highestIndex])
+
   const onSelectLeft = () => {
     compare(highestIndex, currentIndex, true)
   }
@@ -45,16 +68,14 @@ const Ranker = ({ setScreen, songs, setSongs, albums }) => {
   }
 
   const rank = (index) => {
-    if (length <= 0) return
-    setRanked((prev) => [...prev, items[index]])
-    setLength(items.length - 1)
+    if (items.length <= 0) return
+    ranked.push(items[index])
     setItems((prev) => {
       const newState = prev
       newState.splice(index, 1)
       return newState
     })
     setHighestIndex(0)
-    setCurrentIndex(1)
   }
 
   const greaterSearch = (comps, curr, target, i) => {
@@ -77,9 +98,9 @@ const Ranker = ({ setScreen, songs, setSongs, albums }) => {
   }
 
   const displayNext = () => {
-    if (length < 1) {
+    if (items.length < 1) {
       setScreen('results')
-    } else if (currentIndex < length) {
+    } else if (currentIndex < items.length) {
       // check if a comparison can be inferred
       if (greaterThan(currentIndex, highestIndex)) {
         compare(currentIndex, highestIndex)
@@ -88,7 +109,6 @@ const Ranker = ({ setScreen, songs, setSongs, albums }) => {
       }
     } else {
       rank(highestIndex)
-      displayNext()
     }
   }
 
@@ -98,10 +118,9 @@ const Ranker = ({ setScreen, songs, setSongs, albums }) => {
 
     if (hIndex !== highestIndex) {
       setHighestIndex(hIndex)
+    } else {
+      setCurrentIndex((prev) => prev + 1)
     }
-
-    setCurrentIndex((prev) => prev + 1)
-    displayNext()
   }
 
   const leftSong = items[highestIndex]
@@ -110,9 +129,7 @@ const Ranker = ({ setScreen, songs, setSongs, albums }) => {
   console.log('ranked :>> ', ranked)
   console.log('highestIndex :>> ', highestIndex)
   console.log('currentIndex :>> ', currentIndex)
-  console.log('length :>> ', length)
   console.log('items :>> ', items)
-  console.log('length :>> ', length)
   console.log('comparisons :>> ', comparisons)
   return (
     <Container>
