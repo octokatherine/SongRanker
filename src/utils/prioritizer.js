@@ -7,7 +7,7 @@ function Comparison(g, l, gIndex, lIndex, clicked) {
 }
 
 class Prioritizer {
-  constructor(items) {
+  constructor(items, update) {
     this.items = items
     this.ranked = []
     this.comparisons = []
@@ -17,12 +17,14 @@ class Prioritizer {
     this.itemA = this.items[0]
     this.itemB = this.items[1]
     this.done = false
+    this.update = update
   }
 
   // TODO: create a new object to manage the presentation layer.
   display() {
     this.itemA = this.items[this.highestIndex]
     this.itemB = this.items[this.currentIndex]
+    this.update((n) => !n)
   }
 
   show() {

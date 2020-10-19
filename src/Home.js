@@ -4,6 +4,7 @@ import axios from 'axios'
 import Header from './components/Header'
 import Search from './components/Search'
 import Ranker from './components/Ranker'
+import Results from './components/Results'
 import AlbumPicker from './components/AlbumPicker'
 
 axios.defaults.baseURL = 'https://api.spotify.com'
@@ -22,6 +23,7 @@ const Home = () => {
   const [albums, setAlbums] = useState([])
   const [songs, setSongs] = useState([])
   const [selectedAlbums, setSelectedAlbums] = useState([])
+  const [rankedList, setRankedList] = useState([])
 
   useEffect(() => {
     let config = {
@@ -73,9 +75,11 @@ const Home = () => {
           songs={songs}
           albums={selectedAlbums}
           setSongs={setSongs}
+          rankedList={rankedList}
+          setRankedList={setRankedList}
         />
       )}
-      {screen === screens.results && <div></div>}
+      {screen === screens.results && <Results rankedList={rankedList} />}
     </div>
   )
 }

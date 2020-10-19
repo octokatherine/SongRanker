@@ -12,27 +12,51 @@ function Comparison(g, l, gIndex, lIndex, clicked) {
   this.clicked = clicked
 }
 
-const Ranker = ({ setScreen, songs, setSongs, albums }) => {
+const Ranker = ({ setScreen, songs, setSongs, albums, setRankedList, rankedList }) => {
   const [prioritizer, setPrioritizer] = useState(null)
   const [, forceUpdate] = React.useState(0)
 
   useEffect(() => {
-    albums.forEach((a) => {
-      axios
-        .get(`/v1/albums/${a.id}/tracks?market=US`)
-        .then((result) => {
-          const tracks = result.data.items.map((t) => ({ ...t, image_url: a.images[0]?.url }))
-          setSongs((prev) => [...prev, ...tracks])
-        })
-        .catch((error) => console.log(error))
+    let albumIds = ''
+    albums.forEach((a, idx) => {
+      if (idx !== 0) {
+        albumIds += ','
+      }
+      albumIds += a.id
     })
+    axios
+      .get(`/v1/albums?ids=${albumIds}&market=US`)
+      .then((result) => {
+        let songList = []
+        result.data.albums.forEach((album, idx) => {
+          let tracks = album.tracks.items.map((i) => ({ ...i, image_url: album.images[0]?.url }))
+          songList = [...songList, ...tracks]
+        })
+        setSongs(songList)
+      })
+      .catch((error) => console.log(error))
   }, [])
 
   useEffect(() => {
-    setPrioritizer(new Prioritizer(songs))
+    if (prioritizer == null && songs.length) {
+      const items = [...songs]
+      setPrioritizer(new Prioritizer(items, forceUpdate))
+    }
   }, [songs])
 
-  console.log('prioritizer?.ranked :>> ', prioritizer?.ranked)
+  useEffect(() => {
+    if (prioritizer?.done) {
+      setRankedList(prioritizer?.ranked)
+    }
+  })
+
+  useEffect(() => {
+    if (prioritizer?.done) {
+      setScreen('results')
+    }
+  }, [rankedList])
+
+  console.log('songs :>> ', songs)
   const leftSong = prioritizer?.itemA
   const rightSong = prioritizer?.itemB
   return (
@@ -40,27 +64,27 @@ const Ranker = ({ setScreen, songs, setSongs, albums }) => {
       <Heading>Choose a song</Heading>
       {songs.length && (
         <Options>
-          <div
+          <Option
             onClick={() => {
               prioritizer.compare(prioritizer.highestIndex, prioritizer.currentIndex, true)
-              forceUpdate((n) => !n)
+              console.log('click')
             }}
           >
             <AlbumArtwork src={leftSong?.image_url} />
             <TitleText>{leftSong?.name}</TitleText>
             <ArtistText>{leftSong?.artists[0].name}</ArtistText>
-          </div>
+          </Option>
           <OrText>OR</OrText>
-          <div
+          <Option
             onClick={() => {
               prioritizer.compare(prioritizer.currentIndex, prioritizer.highestIndex, true)
-              forceUpdate((n) => !n)
+              console.log('click')
             }}
           >
             <AlbumArtwork src={leftSong?.image_url} />
             <TitleText>{rightSong?.name}</TitleText>
             <ArtistText>{rightSong?.artists[0].name}</ArtistText>
-          </div>
+          </Option>
         </Options>
       )}
     </Container>
@@ -81,7 +105,7 @@ const Heading = styled.p`
 `
 
 const OrText = styled(Text)`
-  transform: translateY(-30px);
+  transform: translateY(60px);
 `
 
 const AlbumArtwork = styled.img`
@@ -92,8 +116,11 @@ const AlbumArtwork = styled.img`
 const Options = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: center;
   max-width: 400px;
+`
+
+const Option = styled.div`
+  max-width: 136px;
 `
 
 const TitleText = styled.p`
