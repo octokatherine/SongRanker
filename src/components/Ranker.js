@@ -52,7 +52,11 @@ const Ranker = ({ setScreen, songs, setSongs, albums, setRankedList, rankedList 
       rightOption.current.style.pointerEvents = 'auto'
     }
     if (prioritizer?.done) {
-      setRankedList(prioritizer?.ranked)
+      const list = []
+      for (let i = prioritizer?.ranked.length - 1; i >= 0; i--) {
+        list.push(prioritizer?.ranked[i])
+      }
+      setRankedList(list)
     }
   })
 
