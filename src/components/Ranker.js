@@ -48,6 +48,7 @@ const Ranker = ({ setScreen, songs, setSongs, albums, setRankedList, rankedList 
 
   useEffect(() => {
     if (leftOption.current && rightOption.current) {
+      console.log('clicks on')
       leftOption.current.style.pointerEvents = 'auto'
       rightOption.current.style.pointerEvents = 'auto'
     }
@@ -62,11 +63,12 @@ const Ranker = ({ setScreen, songs, setSongs, albums, setRankedList, rankedList 
     }
   }, [rankedList])
 
-  console.log('songs :>> ', songs)
   const leftSong = prioritizer?.itemA
   const rightSong = prioritizer?.itemB
   console.log('leftSong :>> ', leftSong)
   console.log('rightSong :>> ', rightSong)
+  console.log('songs :>> ', songs)
+  console.log('prioritizer?.ranked :>> ', prioritizer?.ranked)
   return (
     <Container>
       <Heading>Choose a song</Heading>
@@ -89,10 +91,11 @@ const Ranker = ({ setScreen, songs, setSongs, albums, setRankedList, rankedList 
           <Option
             ref={rightOption}
             onClick={() => {
+              console.log('click')
+              console.log('clicks off')
               leftOption.current.style.pointerEvents = 'none'
               rightOption.current.style.pointerEvents = 'none'
               prioritizer.compare(prioritizer.currentIndex, prioritizer.highestIndex, true)
-              console.log('click')
             }}
           >
             <AlbumArtwork src={leftSong?.image_url} />

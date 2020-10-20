@@ -1,4 +1,5 @@
 function Comparison(g, l, gIndex, lIndex, clicked) {
+  console.log('Comparison')
   this.greater = g
   this.lesser = l
   this.greaterIndex = gIndex
@@ -20,18 +21,15 @@ class Prioritizer {
     this.update = update
   }
 
-  // TODO: create a new object to manage the presentation layer.
   display() {
+    console.log('display')
     this.itemA = this.items[this.highestIndex]
     this.itemB = this.items[this.currentIndex]
     this.update((n) => !n)
   }
 
-  show() {
-    this.displayNext()
-  }
-
   greaterSearch(comps, curr, target, i) {
+    console.log('greaterSearch')
     var comp,
       found = false
 
@@ -47,6 +45,7 @@ class Prioritizer {
   }
 
   greaterThan(aIndex, bIndex) {
+    console.log('greater than')
     return this.greaterSearch(
       this.comparisons,
       this.items[aIndex],
@@ -56,6 +55,7 @@ class Prioritizer {
   }
 
   rank(index) {
+    console.log('rank')
     if (this.length <= 0) return
 
     this.ranked.push(this.items[index])
@@ -66,24 +66,32 @@ class Prioritizer {
   }
 
   displayNext() {
+    console.log('displayNext')
     if (this.length < 1) {
+      console.log('one')
       this.done = true
+      this.update((n) => !n)
     } else if (this.currentIndex < this.length) {
       // check if a comparison can be inferred
       if (this.greaterThan(this.currentIndex, this.highestIndex)) {
+        console.log('two')
         this.compare(this.currentIndex, this.highestIndex)
       } else if (this.greaterThan(this.highestIndex, this.currentIndex)) {
+        console.log('three')
         this.compare(this.highestIndex, this.currentIndex)
       } else {
+        console.log('four')
         this.display()
       }
     } else {
+      console.log('five')
       this.rank(this.highestIndex)
       this.displayNext()
     }
   }
 
   compare(hIndex, lIndex, clicked) {
+    console.log('compare')
     var comp = new Comparison(this.items[hIndex], this.items[lIndex], hIndex, lIndex, clicked)
     this.comparisons.push(comp)
 
