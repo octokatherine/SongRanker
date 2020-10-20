@@ -105,7 +105,7 @@ const Ranker = ({ setScreen, songs, setSongs, albums, setRankedList, rankedList 
               prioritizer.onClickMiddle()
             }}
           >
-            <AlbumArtwork src={leftSong?.image_url} />
+            <AlbumArtwork src={rightSong?.image_url} />
             <TitleText>{rightSong?.name}</TitleText>
             <ArtistText>{rightSong?.artists[0].name}</ArtistText>
           </Option>
