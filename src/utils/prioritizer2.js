@@ -34,7 +34,7 @@ class Prioritizer {
       }
       this.current++
       this.min = 0
-      this.max = this.ranked.length
+      this.max = this.ranked.length - 1
     }
     this.setMiddle()
     this.promptUser()
@@ -52,7 +52,7 @@ class Prioritizer {
       }
       this.current++
       this.min = 0
-      this.max = this.ranked.length
+      this.max = this.ranked.length - 1
     }
     this.setMiddle()
     this.promptUser()
