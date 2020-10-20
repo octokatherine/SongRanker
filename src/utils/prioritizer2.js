@@ -42,8 +42,8 @@ class Prioritizer {
 
   onClickMiddle() {
     this.max = this.middle
-    if (this.min == this.max) {
-      this.insertItem(this.items[this.current], this.min)
+    if (this.min == this.max || this.min == -1) {
+      this.insertItem(this.items[this.current], this.max)
       if (this.ranked.length == this.items.length) {
         console.log('DONE!')
         this.done = true
