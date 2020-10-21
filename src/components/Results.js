@@ -58,7 +58,6 @@ const Results = ({ rankedList, token, setToken, restart }) => {
           .then((response) => {
             setPlaylistUrl(response.data.external_urls.spotify)
             const playlistId = response.data.id
-            console.log('response :>> ', response)
             axios
               .post(
                 `/v1/playlists/${playlistId}/tracks`,

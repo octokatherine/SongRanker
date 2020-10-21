@@ -40,7 +40,12 @@ const Home = () => {
 
   const restart = () => {
     setRankedList([])
+    setSongs([])
+    setSelectedAlbums([])
+    setAlbums([])
+    setSelectedItem(null)
     setScreen(screens.search)
+    window.location.reload()
   }
 
   useEffect(() => {
