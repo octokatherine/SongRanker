@@ -19,7 +19,6 @@ const Search = ({ setScreen, selectedItem, setSelectedItem, setSelectedAlbums })
 
   const getSearchResults = () => {
     axios.get(`/v1/search?q=${searchText}&type=${searchType}&limit=5`).then((response) => {
-      console.log(response)
       setSearchResults(response.data[searchType + 's'].items)
     })
   }

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
 import styled from 'styled-components'
 import { Subheader, Text, PrimaryButton } from '../Base'
-import Prioritizer from '../utils/prioritizer2'
+import Prioritizer from '../utils/prioritizer'
 
 function Comparison(g, l, gIndex, lIndex, clicked) {
   this.greater = g
@@ -68,15 +68,6 @@ const Ranker = ({ setScreen, songs, setSongs, albums, setRankedList, rankedList 
 
   const leftSong = prioritizer?.items[prioritizer?.current]
   const rightSong = prioritizer?.ranked[prioritizer?.middle]
-  console.log('leftSong :>> ', leftSong)
-  console.log('rightSong :>> ', rightSong)
-  console.log('songs :>> ', songs)
-  console.log('prioritizer?.ranked :>> ', prioritizer?.ranked)
-  console.log('prioritizer?.items :>> ', prioritizer?.items)
-  console.log('prioritizer?.current :>> ', prioritizer?.current)
-  console.log('prioritizer?.middle :>> ', prioritizer?.middle)
-  console.log('prioritizer?.min :>> ', prioritizer?.min)
-  console.log('prioritizer?.max :>> ', prioritizer?.max)
   return (
     <Container>
       <Heading>Choose a song</Heading>
@@ -88,7 +79,6 @@ const Ranker = ({ setScreen, songs, setSongs, albums, setRankedList, rankedList 
               leftOption.current.style.pointerEvents = 'none'
               rightOption.current.style.pointerEvents = 'none'
               prioritizer.onClickCurrent()
-              console.log('click')
             }}
           >
             <AlbumArtwork src={leftSong?.image_url} />
@@ -99,7 +89,6 @@ const Ranker = ({ setScreen, songs, setSongs, albums, setRankedList, rankedList 
           <Option
             ref={rightOption}
             onClick={() => {
-              console.log('click')
               leftOption.current.style.pointerEvents = 'none'
               rightOption.current.style.pointerEvents = 'none'
               prioritizer.onClickMiddle()
