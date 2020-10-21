@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "7ffabe31503afbf53f4b95a5f650d083",
+    "revision": "ea6ccd02266bda9e4862a4c11430db48",
     "url": "/rankify/index.html"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/rankify/static/js/2.591486ad.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "8fa485e0b91caa1f9cd5",
-    "url": "/rankify/static/js/main.35f2d418.chunk.js"
+    "revision": "eda63e4c759f6946bc3a",
+    "url": "/rankify/static/js/main.fbdeca79.chunk.js"
   },
   {
     "revision": "f8779f65072a0a249586",
