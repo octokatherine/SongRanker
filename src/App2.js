@@ -50,10 +50,7 @@ class App extends Component {
 
     const data = 'grant_type=client_credentials'
 
-    axios.post('https://accounts.spotify.com/api/token', data, config).then(function (response) {
-      console.log(response)
-      console.log(response.data.access_token)
-    })
+    axios.post('https://accounts.spotify.com/api/token', data, config).then(function (response) {})
   }
 
   render() {

@@ -65,7 +65,6 @@ const Results = ({ rankedList, token, setToken, restart }) => {
                 { uris: rankedList.map((s) => s.uri) },
                 { headers: { Authorization: 'Bearer ' + token } }
               )
-              .then((response) => console.log(response))
               .catch((err) => console.log(err))
           })
           .catch((err) => console.log(err))
