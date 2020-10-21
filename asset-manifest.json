@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.js": "/rankify/static/js/main.ab97fb32.chunk.js",
+    "main.js.map": "/rankify/static/js/main.ab97fb32.chunk.js.map",
+    "runtime-main.js": "/rankify/static/js/runtime-main.a2a647bf.js",
+    "runtime-main.js.map": "/rankify/static/js/runtime-main.a2a647bf.js.map",
+    "static/js/2.31a64a4e.chunk.js": "/rankify/static/js/2.31a64a4e.chunk.js",
+    "static/js/2.31a64a4e.chunk.js.map": "/rankify/static/js/2.31a64a4e.chunk.js.map",
+    "index.html": "/rankify/index.html",
+    "precache-manifest.46eacadc6a5049945f28865f8a32685f.js": "/rankify/precache-manifest.46eacadc6a5049945f28865f8a32685f.js",
+    "service-worker.js": "/rankify/service-worker.js",
+    "static/js/2.31a64a4e.chunk.js.LICENSE.txt": "/rankify/static/js/2.31a64a4e.chunk.js.LICENSE.txt",
+    "static/media/down.svg": "/rankify/static/media/down.b4ef9886.svg",
+    "static/media/logo.svg": "/rankify/static/media/logo.4121971b.svg",
+    "static/media/magnify.svg": "/rankify/static/media/magnify.dc035f9e.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.a2a647bf.js",
+    "static/js/2.31a64a4e.chunk.js",
+    "static/js/main.ab97fb32.chunk.js"
+  ]
+}
