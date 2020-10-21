@@ -13,7 +13,7 @@ const AlbumPicker = ({
 }) => {
   useEffect(() => {
     axios
-      .get(`/v1/artists/${selectedItem.id}/albums?market=US&include_groups=album`)
+      .get(`/v1/artists/${selectedItem.id}/albums?market=US&include_groups=album&limit=50`)
       .then((result) => {
         setAlbums(result.data.items)
       })
