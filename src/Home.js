@@ -65,8 +65,6 @@ const Home = () => {
       })
   }, [])
 
-  console.log('userToken :>> ', userToken)
-
   return (
     <div>
       <Header />
