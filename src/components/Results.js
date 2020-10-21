@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import { Subheader, SpotifyButton, SecondaryButton, PrimaryButton } from '../Base'
+import { Subheader, SpotifyButton, SecondaryButton, PrimaryButton, Text } from '../Base'
 import axios from 'axios'
 
 export const authEndpoint = 'https://accounts.spotify.com/authorize'
@@ -77,7 +77,10 @@ const Results = ({ rankedList, token, setToken, restart }) => {
     return (
       <Container>
         {!token ? (
-          <div>
+          <LoginContainer>
+            <InstructionText>
+              Log in with Spotify to save your ranking to a playlist
+            </InstructionText>
             <SpotifyButton
               onClick={() =>
                 (window.location.href = `${authEndpoint}?client_id=f170a7aa1b8e4e11ae2e80cbbc695b31&redirect_uri=${redirectUri}&scope=${scopes.join(
@@ -87,20 +90,28 @@ const Results = ({ rankedList, token, setToken, restart }) => {
             >
               LOG IN WITH SPOTIFY
             </SpotifyButton>
-          </div>
+          </LoginContainer>
         ) : playlistUrl ? (
-          <PrimaryButton
-            onClick={() => {
-              window.location.href = `${playlistUrl}`
-            }}
-          >
-            Open Playlist
-          </PrimaryButton>
+          <LoginContainer>
+            <InstructionText>Playlist created!</InstructionText>
+            <PrimaryButton
+              onClick={() => {
+                window.location.href = `${playlistUrl}`
+              }}
+            >
+              Open Playlist
+            </PrimaryButton>
+          </LoginContainer>
         ) : (
-          <PrimaryButton onClick={createPlaylist}>Create Playlist</PrimaryButton>
+          <LoginContainer>
+            <InstructionText>Click below to save your ranking to a playlist</InstructionText>
+            <PrimaryButton onClick={createPlaylist}>Create Spotify Playlist</PrimaryButton>
+          </LoginContainer>
         )}
-        <SecondaryButton onClick={restart}>Restart</SecondaryButton>
-        <Subheader>Your Ranking</Subheader>
+        <HeadingContainer>
+          <Subheader style={{ margin: 0 }}>Your Ranking</Subheader>
+          <StartOverButton onClick={restart}>START OVER</StartOverButton>
+        </HeadingContainer>
         {rankedList.map((song, idx) => (
           <ResultItemContainer key={idx}>
             <RankText>#{idx + 1}</RankText>
@@ -175,4 +186,30 @@ const ArtistText = styled.p`
   margin-top: 0.5em;
 `
 
+const LoginContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`
+
+const InstructionText = styled.p`
+  font-size: 14px;
+  color: white;
+`
+const HeadingContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  margin-top: 32px;
+`
+
+const StartOverButton = styled(SecondaryButton)`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 12px;
+  padding: 8px 32px;
+  color: ${(props) => props.theme.background};
+`
 export default Results
