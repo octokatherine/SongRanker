@@ -29,14 +29,14 @@ const Ranker = ({ setScreen, songs, setSongs, albums, setRankedList, rankedList 
         setSongs(songList)
       })
       .catch((error) => console.log(error))
-  }, [])
+  }, [setSongs, albums])
 
   useEffect(() => {
     if (prioritizer == null && songs.length) {
       const items = [...songs]
       setPrioritizer(new Prioritizer(items, forceUpdate))
     }
-  }, [songs])
+  }, [songs, prioritizer])
 
   useEffect(() => {
     if (leftOption.current && rightOption.current) {
@@ -56,7 +56,7 @@ const Ranker = ({ setScreen, songs, setSongs, albums, setRankedList, rankedList 
     if (prioritizer?.done) {
       setScreen('results')
     }
-  }, [rankedList])
+  }, [rankedList, prioritizer, setScreen])
 
   const leftSong = prioritizer?.items[prioritizer?.current]
   const rightSong = prioritizer?.ranked[prioritizer?.middle]

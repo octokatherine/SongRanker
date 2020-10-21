@@ -18,12 +18,12 @@ const AlbumPicker = ({
         setAlbums(result.data.items)
       })
       .catch((error) => console.log(error))
-  }, [])
+  }, [setAlbums, selectedItem])
 
   const toggleSelected = (a) => {
     setSelectedAlbums((prevState) => {
       const newState = [...prevState]
-      if (newState.some((n) => n == a)) {
+      if (newState.some((n) => n === a)) {
         newState.splice(newState.indexOf(a), 1)
       } else {
         newState.push(a)

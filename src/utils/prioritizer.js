@@ -24,9 +24,9 @@ class Prioritizer {
 
   onClickCurrent() {
     this.min = this.middle + 1
-    if (this.min == this.max) {
+    if (this.min === this.max) {
       this.insertItem(this.items[this.current], this.min)
-      if (this.ranked.length == this.items.length) {
+      if (this.ranked.length === this.items.length) {
         this.done = true
         this.promptUser()
         return
@@ -41,9 +41,9 @@ class Prioritizer {
 
   onClickMiddle() {
     this.max = this.middle
-    if (this.min == this.max || this.min == -1) {
+    if (this.min === this.max || this.min === -1) {
       this.insertItem(this.items[this.current], this.max)
-      if (this.ranked.length == this.items.length) {
+      if (this.ranked.length === this.items.length) {
         this.done = true
         this.promptUser()
         return
