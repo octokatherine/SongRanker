@@ -15,7 +15,7 @@ const FixedHeader = styled.div`
 
 const Header = () => {
   return (
-    <FixedHeader>
+    <FixedHeader onClick={() => window.location.reload()}>
       <img src={Logo} alt="Rankify Logo" />
     </FixedHeader>
   )
