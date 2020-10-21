@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.js": "/rankify/static/js/main.015aa217.chunk.js",
-    "main.js.map": "/rankify/static/js/main.015aa217.chunk.js.map",
+    "main.js": "/rankify/static/js/main.0aeac3bd.chunk.js",
+    "main.js.map": "/rankify/static/js/main.0aeac3bd.chunk.js.map",
     "runtime-main.js": "/rankify/static/js/runtime-main.a2a647bf.js",
     "runtime-main.js.map": "/rankify/static/js/runtime-main.a2a647bf.js.map",
     "static/js/2.83e8f826.chunk.js": "/rankify/static/js/2.83e8f826.chunk.js",
     "static/js/2.83e8f826.chunk.js.map": "/rankify/static/js/2.83e8f826.chunk.js.map",
     "index.html": "/rankify/index.html",
-    "precache-manifest.7096e0ccd4a3ece75f415416a8bbbbd4.js": "/rankify/precache-manifest.7096e0ccd4a3ece75f415416a8bbbbd4.js",
+    "precache-manifest.4c1a1d33511eb55edaa02749e837380f.js": "/rankify/precache-manifest.4c1a1d33511eb55edaa02749e837380f.js",
     "service-worker.js": "/rankify/service-worker.js",
     "static/js/2.83e8f826.chunk.js.LICENSE.txt": "/rankify/static/js/2.83e8f826.chunk.js.LICENSE.txt",
     "static/media/down.svg": "/rankify/static/media/down.b4ef9886.svg",
@@ -17,6 +17,6 @@
   "entrypoints": [
     "static/js/runtime-main.a2a647bf.js",
     "static/js/2.83e8f826.chunk.js",
-    "static/js/main.015aa217.chunk.js"
+    "static/js/main.0aeac3bd.chunk.js"
   ]
 }
