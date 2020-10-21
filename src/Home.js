@@ -15,14 +15,33 @@ const screens = {
   results: 'results',
 }
 
+function useStickyState(defaultValue, key) {
+  const [value, setValue] = React.useState(() => {
+    const stickyValue = window.localStorage.getItem(key)
+    return stickyValue !== null ? JSON.parse(stickyValue) : defaultValue
+  })
+  React.useEffect(() => {
+    window.localStorage.setItem(key, JSON.stringify(value))
+  }, [key, value])
+  return [value, setValue]
+}
+
 const Home = () => {
   const [token, setToken] = useState(null)
-  const [screen, setScreen] = useState(screens.search)
+  const [userToken, setUserToken] = useState(null)
   const [selectedItem, setSelectedItem] = useState(null)
   const [albums, setAlbums] = useState([])
   const [songs, setSongs] = useState([])
   const [selectedAlbums, setSelectedAlbums] = useState([])
-  const [rankedList, setRankedList] = useState([])
+  const [rankedList, setRankedList] = useStickyState([])
+  const [screen, setScreen] = useState(() => {
+    return rankedList.length ? screens.results : screens.search
+  })
+
+  const restart = () => {
+    setRankedList([])
+    setScreen(screens.search)
+  }
 
   useEffect(() => {
     let config = {
@@ -45,6 +64,8 @@ const Home = () => {
         console.log(error)
       })
   }, [])
+
+  console.log('userToken :>> ', userToken)
 
   return (
     <div>
@@ -78,7 +99,14 @@ const Home = () => {
           setRankedList={setRankedList}
         />
       )}
-      {screen === screens.results && <Results rankedList={rankedList} />}
+      {screen === screens.results && (
+        <Results
+          rankedList={rankedList}
+          token={userToken}
+          setToken={setUserToken}
+          restart={restart}
+        />
+      )}
     </div>
   )
 }
