@@ -26,7 +26,11 @@ const Ranker = ({ setScreen, songs, setSongs, albums, setRankedList, rankedList 
           let tracks = album.tracks.items.map((i) => ({ ...i, image_url: album.images[0]?.url }))
           songList = [...songList, ...tracks]
         })
-        setSongs(songList)
+        const shuffledSongList = songList
+          .map((a) => ({ sort: Math.random(), value: a }))
+          .sort((a, b) => a.sort - b.sort)
+          .map((a) => a.value)
+        setSongs(shuffledSongList)
       })
       .catch((error) => console.log(error))
   }, [setSongs, albums])
