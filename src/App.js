@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
-import Home from './Home'
 import axios from 'axios'
+import React, { Component } from 'react'
 import styled from 'styled-components'
 import { SpotifyButton } from './Base'
+import Home from './Home'
 
 axios.defaults.baseURL = 'https://api.spotify.com'
 export const authEndpoint = 'https://accounts.spotify.com/authorize'

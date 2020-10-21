@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react'
-import styled from 'styled-components'
 import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+import AlbumPicker from './components/AlbumPicker'
 import Header from './components/Header'
-import Search from './components/Search'
 import Ranker from './components/Ranker'
 import Results from './components/Results'
-import AlbumPicker from './components/AlbumPicker'
+import Search from './components/Search'
 
 axios.defaults.baseURL = 'https://api.spotify.com'
 

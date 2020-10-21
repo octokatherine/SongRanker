@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Home from './Home'
 import { ThemeProvider } from 'styled-components'
+import Home from './Home'
 
 const theme = {
   primary: '#4B89AC',

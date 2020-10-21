@@ -1,6 +1,6 @@
 import React from 'react'
-import { Subheader, Text, PrimaryButton } from '../Base'
 import styled from 'styled-components'
+import { Subheader } from '../Base'
 
 const Results = ({ rankedList }) => {
   if (rankedList.length) {

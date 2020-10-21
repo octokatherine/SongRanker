@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react'
-import styled from 'styled-components'
-import { Subheader, Text, PrimaryButton } from '../Base'
 import axios from 'axios'
+import React, { useState } from 'react'
+import styled from 'styled-components'
+import { PrimaryButton, Subheader, Text } from '../Base'
 
 const DownIcon = require('../images/down.svg')
 const MagnifyingGlassIcon = require('../images/magnify.svg')

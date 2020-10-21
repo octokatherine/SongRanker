@@ -1,16 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
+import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
-import { Subheader, Text, PrimaryButton } from '../Base'
+import { Text } from '../Base'
 import Prioritizer from '../utils/prioritizer'
-
-function Comparison(g, l, gIndex, lIndex, clicked) {
-  this.greater = g
-  this.lesser = l
-  this.greaterIndex = gIndex
-  this.lesserIndex = lIndex
-  this.clicked = clicked
-}
 
 const Ranker = ({ setScreen, songs, setSongs, albums, setRankedList, rankedList }) => {
   const leftOption = useRef(null)
@@ -30,7 +22,7 @@ const Ranker = ({ setScreen, songs, setSongs, albums, setRankedList, rankedList 
       .get(`/v1/albums?ids=${albumIds}&market=US`)
       .then((result) => {
         let songList = []
-        result.data.albums.forEach((album, idx) => {
+        result.data.albums.forEach((album) => {
           let tracks = album.tracks.items.map((i) => ({ ...i, image_url: album.images[0]?.url }))
           songList = [...songList, ...tracks]
         })
