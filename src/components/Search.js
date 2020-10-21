@@ -78,6 +78,7 @@ const Search = ({ setScreen, selectedItem, setSelectedItem, setSelectedAlbums })
                 setSearchType(s)
                 setSearchResults(null)
                 setSelectedItem(null)
+                setSearchText('')
               }}
               selected={searchType === s ? true : false}
             >
@@ -132,6 +133,7 @@ const SearchBarContainer = styled.div`
 `
 
 const SearchBar = styled.input`
+  font-size: 16px;
   border-radius: 15px;
   border: 1px #000 solid;
   padding: 5px 5px 5px 36px;
@@ -149,7 +151,7 @@ const SearchBar = styled.input`
 
 const Magnify = styled.img`
   position: absolute;
-  top: -3px;
+  top: 0px;
   left: 5px;
   z-index: 10;
 `
