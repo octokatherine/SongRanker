@@ -31,6 +31,8 @@ const hash = window.location.hash
 window.location.hash = ''
 
 const Results = ({ rankedList, token, setToken, restart }) => {
+  const [playlistUrl, setPlaylistUrl] = useState(null)
+
   useEffect(() => {
     let _token = hash.access_token
     if (_token) {
@@ -54,14 +56,16 @@ const Results = ({ rankedList, token, setToken, restart }) => {
             { headers: { Authorization: 'Bearer ' + token } }
           )
           .then((response) => {
+            setPlaylistUrl(response.data.external_urls.spotify)
             const playlistId = response.data.id
+            console.log('response :>> ', response)
             axios
               .post(
                 `/v1/playlists/${playlistId}/tracks`,
                 { uris: rankedList.map((s) => s.uri) },
                 { headers: { Authorization: 'Bearer ' + token } }
               )
-              .then((result) => console.log(result))
+              .then((response) => console.log(response))
               .catch((err) => console.log(err))
           })
           .catch((err) => console.log(err))
@@ -84,6 +88,14 @@ const Results = ({ rankedList, token, setToken, restart }) => {
               LOG IN WITH SPOTIFY
             </SpotifyButton>
           </div>
+        ) : playlistUrl ? (
+          <PrimaryButton
+            onClick={() => {
+              window.location.href = `${playlistUrl}`
+            }}
+          >
+            Open Playlist
+          </PrimaryButton>
         ) : (
           <PrimaryButton onClick={createPlaylist}>Create Playlist</PrimaryButton>
         )}
