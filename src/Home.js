@@ -28,7 +28,7 @@ function useStickyState(defaultValue, key) {
 }
 
 const Home = () => {
-  const [token, setToken] = useState(null)
+  const [, setToken] = useState(null)
   const [userToken, setUserToken] = useState(null)
   const [selectedItem, setSelectedItem] = useState(null)
   const [albums, setAlbums] = useState([])

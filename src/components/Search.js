@@ -25,7 +25,12 @@ const Search = ({ setScreen, selectedItem, setSelectedItem, setSelectedAlbums })
 
   const onChange = (ev) => {
     setSearchText(ev.target.value)
-    debounceFunction(getSearchResults, 300)
+    if (!ev.target.value) {
+      clearTimeout(timerId)
+      setSearchResults(null)
+    } else {
+      debounceFunction(getSearchResults, 300)
+    }
   }
 
   const debounceFunction = (func, delay) => {

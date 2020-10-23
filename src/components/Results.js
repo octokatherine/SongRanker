@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import { Subheader, SpotifyButton, SecondaryButton, PrimaryButton, Text } from '../Base'
+import { Subheader, SpotifyButton, SecondaryButton, PrimaryButton } from '../Base'
 import axios from 'axios'
 
 export const authEndpoint = 'https://accounts.spotify.com/authorize'
