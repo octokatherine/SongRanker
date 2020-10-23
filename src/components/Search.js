@@ -49,10 +49,7 @@ const Search = ({ setScreen, selectedItem, setSelectedItem, setSelectedAlbums })
 
   return (
     <Container onClick={() => setShowDropdown(false)}>
-      <Subheader>
-        Search for an Artist, Album, or
-        <br /> Playlist to begin ranking songs
-      </Subheader>
+      <Subheader>Search for an Artist, Album, or Playlist to begin ranking songs</Subheader>
       <SearchContainer>
         <Dropdown onClick={(ev) => toggleShowDropdown(ev)}>
           <Subheader>{searchType.charAt(0).toUpperCase() + searchType.slice(1)}</Subheader>

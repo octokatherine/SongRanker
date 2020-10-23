@@ -5,6 +5,7 @@ import Header from './components/Header'
 import Ranker from './components/Ranker'
 import Results from './components/Results'
 import Search from './components/Search'
+import styled from 'styled-components'
 
 axios.defaults.baseURL = 'https://api.spotify.com'
 
@@ -73,45 +74,53 @@ const Home = () => {
   return (
     <div>
       <Header />
-      {screen === screens.search && (
-        <Search
-          setScreen={setScreen}
-          selectedItem={selectedItem}
-          setSelectedItem={setSelectedItem}
-          setSelectedAlbums={setSelectedAlbums}
-        />
-      )}
-      {screen === screens.album_picker && (
-        <AlbumPicker
-          setScreen={setScreen}
-          selectedItem={selectedItem}
-          setAlbums={setAlbums}
-          albums={albums}
-          selectedAlbums={selectedAlbums}
-          setSelectedAlbums={setSelectedAlbums}
-        />
-      )}
-      {screen === screens.ranker && (
-        <Ranker
-          setScreen={setScreen}
-          selectedItem={selectedItem}
-          songs={songs}
-          albums={selectedAlbums}
-          setSongs={setSongs}
-          rankedList={rankedList}
-          setRankedList={setRankedList}
-        />
-      )}
-      {screen === screens.results && (
-        <Results
-          rankedList={rankedList}
-          token={userToken}
-          setToken={setUserToken}
-          restart={restart}
-        />
-      )}
+      <Content>
+        {screen === screens.search && (
+          <Search
+            setScreen={setScreen}
+            selectedItem={selectedItem}
+            setSelectedItem={setSelectedItem}
+            setSelectedAlbums={setSelectedAlbums}
+          />
+        )}
+        {screen === screens.album_picker && (
+          <AlbumPicker
+            setScreen={setScreen}
+            selectedItem={selectedItem}
+            setAlbums={setAlbums}
+            albums={albums}
+            selectedAlbums={selectedAlbums}
+            setSelectedAlbums={setSelectedAlbums}
+          />
+        )}
+        {screen === screens.ranker && (
+          <Ranker
+            setScreen={setScreen}
+            selectedItem={selectedItem}
+            songs={songs}
+            albums={selectedAlbums}
+            setSongs={setSongs}
+            rankedList={rankedList}
+            setRankedList={setRankedList}
+          />
+        )}
+        {screen === screens.results && (
+          <Results
+            rankedList={rankedList}
+            token={userToken}
+            setToken={setUserToken}
+            restart={restart}
+          />
+        )}
+      </Content>
     </div>
   )
 }
+
+const Content = styled.div`
+  max-width: 680px;
+  align-self: center;
+  margin: auto;
+`
 
 export default Home
