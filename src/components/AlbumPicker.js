@@ -60,9 +60,21 @@ const AlbumPicker = ({
         </div>
       )}
       {selectedAlbums.length ? (
-        <PrimaryButton onClick={onNext} block>
-          BEGIN RANKING
-        </PrimaryButton>
+        <FixedButtonContainer>
+          <PrimaryButton
+            onClick={onNext}
+            style={{
+              position: 'fixed',
+              bottom: '20px',
+              left: '50%',
+              width: 'calc(100% - 30px)',
+              transform: 'translateX(-50%)',
+              maxWidth: '400px',
+            }}
+          >
+            BEGIN RANKING
+          </PrimaryButton>
+        </FixedButtonContainer>
       ) : null}
     </Container>
   )
@@ -76,7 +88,7 @@ const WarningText = styled(Text)`
 const Container = styled.div`
   padding: 16px;
   padding-top: 70px;
-  padding-bottom: 32px;
+  padding-bottom: 80px;
 `
 
 const ResultImage = styled.img`
@@ -97,11 +109,19 @@ const ResultItem = styled.div`
   display: flex;
   align-items: center;
   height: 56px;
-  margin-bottom: 1ch;
+  margin-bottom: 5px;
   border-radius: 10px;
-  padding: ${(props) => (props.selected ? '1ch' : '0')} 2ch;
+  padding: 2px 10px;
   background-color: ${(props) =>
     props.selected ? props.theme.darkestGray : props.theme.background};
+`
+const FixedButtonContainer = styled.div`
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  height: 80px;
+  width: 100%;
+  background-color: rgb(41, 41, 41, 0.93);
 `
 
 export default AlbumPicker

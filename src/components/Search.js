@@ -106,7 +106,17 @@ const Search = ({ setScreen, selectedItem, setSelectedItem, setSelectedAlbums })
         </div>
       )}
       {selectedItem && (
-        <PrimaryButton onClick={nextScreen} style={{ marginTop: '10px' }} block>
+        <PrimaryButton
+          onClick={nextScreen}
+          style={{
+            position: 'fixed',
+            bottom: '30px',
+            left: '50%',
+            width: 'calc(100% - 30px)',
+            transform: 'translateX(-50%)',
+            maxWidth: '400px',
+          }}
+        >
           {searchType === 'album' ? 'BEGIN RANKING' : 'NEXT'}
         </PrimaryButton>
       )}
