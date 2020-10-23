@@ -200,9 +200,9 @@ const ResultItem = styled.div`
   display: flex;
   align-items: center;
   height: 56px;
-  margin-bottom: 1ch;
+  margin-bottom: 5px;
   border-radius: 10px;
-  padding: ${(props) => (props.selected ? '1ch' : '0')} 2ch;
+  padding: 2px 10px;
   background-color: ${(props) =>
     props.selected ? props.theme.darkestGray : props.theme.background};
 `
