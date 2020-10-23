@@ -52,7 +52,7 @@ const Results = ({ rankedList, token, setToken, restart }) => {
         axios
           .post(
             `/v1/users/${userSpotifyId}/playlists`,
-            { name: 'Rankify Results' },
+            { name: 'SongRanker Results' },
             { headers: { Authorization: 'Bearer ' + token } }
           )
           .then((response) => {
