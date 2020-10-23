@@ -122,28 +122,34 @@ const Heading = styled.p`
 `
 
 const OrText = styled(Text)`
-  transform: translateY(60px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
 `
 
 const AlbumArtwork = styled.img`
-  height: 136px;
-  width: 136px;
+  height: 100%;
+  width: auto;
 `
 
 const Options = styled.div`
   display: flex;
   justify-content: space-between;
-  max-width: 400px;
+  margin: auto;
 `
 
 const Option = styled.div`
-  max-width: 136px;
+  height: 33.33vw;
+  width: 33.33vw;
+  max-width: 250px;
+  max-height: 250px;
 `
 
 const TitleText = styled.p`
   font-style: normal;
   font-weight: bold;
-  font-size: 13px;
+  font-size: 1rem;
   color: white;
   margin-bottom: 0px;
 `
@@ -151,7 +157,7 @@ const TitleText = styled.p`
 const ArtistText = styled.p`
   font-style: italic;
   font-weight: normal;
-  font-size: 12px;
+  font-size: 0.8rem;
   color: #8d9193;
   margin-top: 0.5em;
 `
