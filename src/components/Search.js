@@ -61,6 +61,9 @@ const Search = ({ setScreen, selectedItem, setSelectedItem, setSelectedAlbums })
           <Down src={DownIcon} />
         </Dropdown>
         <SearchBarContainer>
+          <div>
+            <Magnify src={MagnifyingGlassIcon} />
+          </div>
           <SearchBar
             type="text"
             value={searchText}
@@ -68,7 +71,6 @@ const Search = ({ setScreen, selectedItem, setSelectedItem, setSelectedAlbums })
               onChange(ev)
             }}
           />
-          <Magnify src={MagnifyingGlassIcon} />
         </SearchBarContainer>
       </SearchContainer>
       {showDropdown && (
@@ -138,23 +140,24 @@ const SearchContainer = styled.div`
 `
 
 const SearchBarContainer = styled.div`
-  position: relative;
   height: 30px;
   flex-grow: 1;
   margin-left: 12px;
+
+  display: flex;
+  justify-content: flex-start;
+
+  border-radius: 15px;
+  border: 1px #000 solid;
+  padding: 0 5px;
+  background-color: white;
 `
 
 const SearchBar = styled.input`
-  font-size: 16px;
-  border-radius: 15px;
-  border: 1px #000 solid;
-  padding: 5px 5px 5px 36px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 5;
   width: 100%;
-  box-sizing: border-box;
+  border-radius: 0 15px 15px 0;
+  border: none;
+  font-size: 16px;
 
   &:focus {
     outline: none;
@@ -162,10 +165,9 @@ const SearchBar = styled.input`
 `
 
 const Magnify = styled.img`
-  position: absolute;
   top: 0px;
   left: 5px;
-  z-index: 10;
+  /* z-index: 10; */
 `
 
 const Dropdown = styled.div`
