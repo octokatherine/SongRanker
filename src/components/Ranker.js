@@ -62,6 +62,14 @@ const Ranker = ({ setScreen, songs, setSongs, albums, setRankedList, rankedList 
     }
   }, [rankedList, prioritizer, setScreen])
 
+  console.log(
+    'prioritizer?.ranked :>> ',
+    JSON.stringify(
+      prioritizer?.ranked.map((r) => r.name),
+      0,
+      4
+    )
+  )
   const leftSong = prioritizer?.items[prioritizer?.current]
   const rightSong = prioritizer?.ranked[prioritizer?.middle]
   return (

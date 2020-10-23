@@ -4,7 +4,7 @@ class Prioritizer {
     this.ranked = [this.items[0]]
     this.current = 1
     this.middle = 0
-    this.min = -1
+    this.min = 0
     this.max = 1
     this.done = false
     this.update = update
@@ -33,7 +33,7 @@ class Prioritizer {
       }
       this.current++
       this.min = 0
-      this.max = this.ranked.length - 1
+      this.max = this.ranked.length
     }
     this.setMiddle()
     this.promptUser()
@@ -50,7 +50,7 @@ class Prioritizer {
       }
       this.current++
       this.min = 0
-      this.max = this.ranked.length - 1
+      this.max = this.ranked.length
     }
     this.setMiddle()
     this.promptUser()
