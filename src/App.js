@@ -7,7 +7,7 @@ import Home from './Home'
 axios.defaults.baseURL = 'https://api.spotify.com'
 export const authEndpoint = 'https://accounts.spotify.com/authorize'
 const clientId = 'f170a7aa1b8e4e11ae2e80cbbc695b31'
-const redirectUri = 'https://katherinepeterson.github.io/rankify/'
+const redirectUri = 'http://songranker.com/'
 const scopes = [
   'user-read-currently-playing',
   'user-read-playback-state',

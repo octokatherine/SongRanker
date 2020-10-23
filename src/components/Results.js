@@ -4,7 +4,7 @@ import { Subheader, SpotifyButton, SecondaryButton, PrimaryButton, Text } from '
 import axios from 'axios'
 
 export const authEndpoint = 'https://accounts.spotify.com/authorize'
-const redirectUri = 'https://katherinepeterson.github.io/rankify/'
+const redirectUri = 'http://songranker.com/'
 const scopes = [
   'user-read-currently-playing',
   'user-read-playback-state',
