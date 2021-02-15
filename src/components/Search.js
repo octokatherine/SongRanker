@@ -8,7 +8,7 @@ const MagnifyingGlassIcon = require('../images/magnify.svg')
 
 var timerId
 
-const searchTypes = ['artist', 'album']
+const searchTypes = ['album', 'artist']
 
 const Search = ({ setScreen, selectedItem, setSelectedItem, setSelectedAlbums }) => {
   //artist or album
@@ -54,7 +54,7 @@ const Search = ({ setScreen, selectedItem, setSelectedItem, setSelectedAlbums })
 
   return (
     <Container onClick={() => setShowDropdown(false)}>
-      <Subheader>Search for an Artist, Album, or Playlist to begin ranking songs</Subheader>
+      <Subheader>Search for an Album or Artist to begin ranking songs</Subheader>
       <SearchContainer>
         <Dropdown onClick={(ev) => toggleShowDropdown(ev)}>
           <Subheader>{searchType.charAt(0).toUpperCase() + searchType.slice(1)}</Subheader>
@@ -172,6 +172,9 @@ const Magnify = styled.img`
 
 const Dropdown = styled.div`
   display: flex;
+  cursor: pointer;
+  width: 70px;
+  justify-content: flex-end;
 `
 
 const Down = styled.img`
@@ -186,6 +189,7 @@ const DropdownOptions = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  cursor: pointer;
 `
 
 const DropdownOption = styled(Text)`

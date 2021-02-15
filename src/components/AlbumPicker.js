@@ -43,9 +43,10 @@ const AlbumPicker = ({
         <br /> in your ranking
       </Subheader>
       <WarningText>
-        For best results, select at most one version of each album to avoid duplicate songs
+        For best results, select at most one version of each album to avoid duplicate songs. The
+        more albums you pick, the longer it will take to rank.
       </WarningText>
-      {albums.length && (
+      {albums.length > 0 && (
         <div>
           {albums.map((a, idx) => (
             <ResultItem
@@ -59,7 +60,7 @@ const AlbumPicker = ({
           ))}
         </div>
       )}
-      {selectedAlbums.length ? (
+      {selectedAlbums.length > 0 ? (
         <FixedButtonContainer>
           <PrimaryButton
             onClick={onNext}
