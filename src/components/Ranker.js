@@ -75,7 +75,7 @@ const Ranker = ({ setScreen, songs, setSongs, albums, setRankedList, rankedList 
   return (
     <Container>
       <Heading>Choose a song</Heading>
-      {songs.length && (
+      {songs.length > 0 && (
         <Options>
           <Option
             ref={leftOption}
