@@ -137,6 +137,7 @@ const Options = styled.div`
   display: flex;
   justify-content: space-between;
   margin: auto;
+  cursor: pointer;
 `
 
 const Option = styled.div`
